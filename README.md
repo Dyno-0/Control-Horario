@@ -1,0 +1,1 @@
+Aplicación para el control horario laboral.
