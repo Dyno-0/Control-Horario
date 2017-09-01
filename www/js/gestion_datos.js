@@ -52,7 +52,7 @@ function escucharbotones() {
 				if (confirm('Quieres reiniciar la semana?\nSe borrarán todos los datos.')) {
 					localStorage.clear();
 				}
-				location.href = 'index.html';
+				history.go(-1);
 				break;
 		}
 	})	
@@ -74,7 +74,7 @@ function solicitardiayhora(tipodato) {
 	 	if (confirm('Dato a modificar:\n' + tipodato + ' del ' + diadelasemana + ', a las ' + horacambio + '.')) {
 			localStorage.setItem(tipodato + momentocambio.getDay(), momentocambio.getTime());
 		}
-		location.href = 'index.html';
+		history.go(-1);
 	});
 }
 
@@ -94,7 +94,7 @@ function solicitardia() {
 			localStorage.setItem('finaljornada' + momentocambio.getDay(), null);
 			localStorage.setITem('totaldescanso' + momentocambio.getDay(), null);
 		}
-		location.href = 'index.html';
+		history.go(-1);
 	});
 }
 
@@ -112,7 +112,7 @@ function solicitarhora(tipodato) {
 		if (confirm('Dato a modificar:\n' + tipodato + ' a las ' + horacambio + '.')) {
 			localStorage.setItem(tipodato, momentocambio.getTime());
 		}
-		location.href = 'index.html';
+		history.go(-1);
 	});	
 	
 }
@@ -136,7 +136,7 @@ function solicitardiayminutos() {
 		if (confirm('Dato a modificar:\nTotal del descanso del ' + diadelasemana + ' en ' + totalminutos + ' minutos.')) {
 			localStorage.setItem('totaldescanso' + momentocambio.getDay(), totalminutos);	
 		}
-		location.href = 'index.html';
+		history.go(-1);
 	});	
 }	
 
