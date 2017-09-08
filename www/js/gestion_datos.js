@@ -54,6 +54,14 @@ function escucharbotones() {
 				}
 				history.go(-1);
 				break;
+			case '8':
+				if (confirm('Quieres borrar el descanso de la jornada actual?')) {
+					localStorage.setItem('iniciodescanso', null);
+					localStorage.setItem('finaldescanso', null);
+					localStorage.setItem('totaldescanso' + new Date().getDay(), null);
+				}
+				history.go(-1);
+				break;
 		}
 	})	
 }	

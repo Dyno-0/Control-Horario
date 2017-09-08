@@ -302,7 +302,7 @@ var botontotaldescanso = {
 		var iniciodescanso = parseInt(localStorage.getItem('iniciodescanso'));
 		var finaldescanso = parseInt(localStorage.getItem('finaldescanso'));
 		var totaldescanso = parseInt(localStorage.getItem('totaldescanso' + new Date().getDay()));
-		if (isNaN(totaldescanso)) {totaldescanso = 0;}
+		if (isNaN(totaldescanso)) {totaldescanso = 0}
 		
 		if (isNaN(iniciodescanso)) {
 			document.getElementById('total_horas_descanso').innerHTML = '00:00';
@@ -332,7 +332,9 @@ var botontotaldescanso = {
 	calculototaldescanso: function () {
 		var iniciodescanso = new Date(parseInt(localStorage.getItem('iniciodescanso')));
 		var finaldescanso = new Date(parseInt(localStorage.getItem('finaldescanso')));
-		var totaldescanso = calculadora.milisegundosaminutos(finaldescanso) - calculadora.milisegundosaminutos(iniciodescanso);
+		var totaldescanso = parseInt(localStorage.getItem('totaldescanso' + new Date().getDay()));
+		if (isNaN(totaldescanso)) {totaldescanso = 0}
+		var totaldescanso = totaldescanso + (calculadora.milisegundosaminutos(finaldescanso) - calculadora.milisegundosaminutos(iniciodescanso));
 		localStorage.setItem('totaldescanso' + new Date().getDay(), totaldescanso);
 	},
 	
