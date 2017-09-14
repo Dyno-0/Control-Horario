@@ -138,7 +138,6 @@ function actualizardatos() {
 			document.getElementById('totalacumulado').style.color = '#A52A2A';	
 		}
 		tiempoacumulado = Math.abs(tiempoacumulado);
-		console.log(tiempoacumulado);
 		var horasacumuladas = calculadora.pasarahoras(tiempoacumulado);
 		var minutosacumulados = calculadora.pasaraminutos(tiempoacumulado);
 		if(horasacumuladas < 10){horasacumuladas = '0' + horasacumuladas}
@@ -209,6 +208,7 @@ function mostrarhora() {
 /*Con esta función principal, cargamos las funciones que queremos que se inicien al inicio para la 
  ejecución del programa.*/
 function iniciar() {
+	hora();
 	mostrarhora();
 	comprobarvariables();
 	actualizardatos();

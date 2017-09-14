@@ -7,11 +7,6 @@
   src: url('NotoSans-Regular.ttf');
 }
 
-@font-face{
-  font-family: 'Handlee';
-  src: url('Handlee-Regular.ttf');
-}
-
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -34,7 +29,7 @@ body {
 	font-weight: bold;
 	background-color: #666;
 	color: #fff;
-	font-size: 1em;
+	font-size: 0.9em;
 }
 
 nav{

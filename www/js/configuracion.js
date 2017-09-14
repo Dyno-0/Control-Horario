@@ -110,6 +110,7 @@ function mostrarhora() {
 /*Con esta función principal, cargamos las funciones que queremos que se inicien al inicio para la 
  ejecución del programa.*/
 function iniciar() {
+	hora();
 	mostrarhora();
 	comprobarvariables();
 	escucharbotones();
