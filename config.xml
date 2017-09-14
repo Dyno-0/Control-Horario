@@ -10,5 +10,4 @@
     <content src="index.html" />
     <access origin="*" />
     <icon src="icono.png" />
-    <splash src="icono.png" />
 </widget>
