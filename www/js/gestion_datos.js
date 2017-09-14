@@ -100,7 +100,7 @@ function solicitardia() {
 		if (confirm('Dato a modificar:\nBorrar la jornada del ' + diadelasemana + '.')) {
 			localStorage.setItem('iniciojornada' + momentocambio.getDay(), null);
 			localStorage.setItem('finaljornada' + momentocambio.getDay(), null);
-			localStorage.setITem('totaldescanso' + momentocambio.getDay(), null);
+			localStorage.setItem('totaldescanso' + momentocambio.getDay(), null);
 		}
 		history.go(-1);
 	});
