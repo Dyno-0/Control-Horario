@@ -32,6 +32,15 @@
 
 			<h2>Configuración</h2>
 							
+			<div id="caja">			
+				<h3>Tipo de horario actual</h3>
+				<select id="minutostrabajo" name="minutostrabajo" class="actualizar" style="text-align: center">
+ 					<option value="0" id="invierno" style="text-align: center">Horario de invierno</option>
+					<option value="1" id="verano">Horario de verano</option>
+ 					<option value="2" id="fiestas">Horario de fiestas</option>
+				</select>							
+			</div>
+			<div class="clear"></div>
 			
 			<div id="caja">			
 				<h3>Número de días semanales</h3>
@@ -39,25 +48,23 @@
 				<input type="text" name="diassemana" placeholder="5" id="diassemana">				
 			</div>
 			<div class="clear"></div>
-		
-			<br>
-		
-			
+							
 			<div id="caja">
-				<h3>Minutos diarios a trabajar</h3>		
-				<button class="actualizar" id="actualizar_minutos_trabajo">Actualizar</button>
-				<input type="text" name="minutostrabajo" placeholder="300" id="minutostrabajo">		
+				<h3>Minutos diarios de descanso</h3>
+				<button class="actualizar" id="actualizar_minutos_descanso">Actualizar</button> 
+				<input type="text" name="minutosdescanso" placeholder="35" id="minutosdescanso">		
+			</div>	
+			<div class="clear"></div>
+
+			<div id="caja">
+				<h3>Minutos diarios de cortesia</h3>		
+				<button class="actualizar" id="actualizar_minutos_cortesia">Actualizar</button>
+				<input type="text" name="minutoscortesia" placeholder="30" id="minutoscortesia">		
 			</div>
 			<div class="clear"></div>
 			
 			<br>
-				
-			<div id="caja">
-				<h3>Minutos diarios de descanso</h3>
-				<button class="actualizar" id="actualizar_minutos_descanso">Actualizar</button> 
-				<input type="text" name="minutosdescanso" placeholder="30" id="minutosdescanso">		
-			</div>	
-			<div class="clear"></div>
+
 	
 		</section>
 		
