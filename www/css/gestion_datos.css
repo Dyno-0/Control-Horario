@@ -96,7 +96,8 @@ input{
 
 select{
 	height: 40px;
-	width: 60%
+	width: 60%;
+	font-size: 20px;
 }
 
 option{
@@ -112,7 +113,7 @@ button{
 	background-color: #fff;
 	border: 4px solid #BFBFBF;
 	font-weight: 600;
-   font-size: 20px;
+    font-size: 20px;
  /*  cursor: pointer;*/
  	transition: 1s;
 }
@@ -121,6 +122,5 @@ button{
 	color: #fff;
 	border: 4px solid #45259B;
 	background-color: #7F69B3;
-/*	cursor: pointer;*/
 	transition: 0.5s;
 }
