@@ -88,7 +88,7 @@ section{
 }
 
 input{
-	height: 40px;
+	height: 30px;
 	width: 40%;
 	font-size: 25px;
 	text-align: right;
@@ -99,7 +99,7 @@ input{
 }
 
 button{
-	height: 50px;
+	height: 40px;
 	width: 50%;
 	border-radius: 35px;
 	margin: 00px;
@@ -121,7 +121,7 @@ button{
 }
 
 select{
-	height: 50px;
+	height: 40px;
 	width: 93%;
 	border-radius: 35px;
 	margin: 00px;
