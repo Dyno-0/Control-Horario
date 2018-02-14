@@ -1,8 +1,3 @@
-/*Iniciamos las variables globales necesarias*/
-var minutosdescanso = 30;
-var minutosTrabajo = 400;
-
-
 /*Creamos los objetos BOTON que capturarán la hora que son pulsados, mostraran la hora en pantalla y cambiaran es aspecto 
 de la pantalla en función de si estan activados o desactivados.*/
 var botoniniciojornada = {
@@ -64,6 +59,7 @@ var botonfinaljornada = {
 		if (confirm('Estás seguro de finalizar la jornada?')) {
 			localStorage.setItem(finaljornada, horamilisegundos);
 			if (botonfinaldescanso.activo) {
+				alert("El descanso no está finalizado. Se finalizará con la hora actual. Comprueba que es correcto, y si es necesario modificar este dato.");
 				localStorage.setItem('finaldescanso', horamilisegundos);
 				botontotaldescanso.calculototaldescanso();
 			}
@@ -118,12 +114,7 @@ var botontotaljornada = {
 	mostrarhora: function () {
 		var iniciojornada = parseInt(localStorage.getItem('iniciojornada' + new Date().getDay()));
 		var finaljornada = parseInt(localStorage.getItem('finaljornada' + new Date().getDay()));
-		var totaldescanso = parseInt(localStorage.getItem('totaldescanso' + new Date().getDay()));
-		var descansoexcedido = 0;		
-		if (isNaN(totaldescanso)) {totaldescanso = 0}
-		
-		if (totaldescanso > 30) {descansoexcedido = totaldescanso - 30}	
-		
+
 		if (isNaN(iniciojornada)) {
 			document.getElementById('total_horas_jornada').innerHTML = '00:00';
 			this.pulsado = false;
@@ -132,8 +123,8 @@ var botontotaljornada = {
 		}
 		else if (isNaN(finaljornada)) {
 			var parcialjornada = Date.parse(new Date());
-			var horas = calculadora.pasarahoras((calculadora.milisegundosaminutos(parcialjornada) - calculadora.milisegundosaminutos(iniciojornada)) - descansoexcedido);
-			var minutos = calculadora.pasaraminutos((calculadora.milisegundosaminutos(parcialjornada) - calculadora.milisegundosaminutos(iniciojornada)) - descansoexcedido);
+			var horas = calculadora.pasarahoras(calculadora.milisegundosaminutos(parcialjornada) - calculadora.milisegundosaminutos(iniciojornada));
+			var minutos = calculadora.pasaraminutos(calculadora.milisegundosaminutos(parcialjornada) - calculadora.milisegundosaminutos(iniciojornada));
 			if(horas < 10){horas = '0' + horas}
 			if(minutos < 10){minutos = '0' + minutos}
 		
@@ -141,8 +132,8 @@ var botontotaljornada = {
 			this.pulsado = false;
 		}
 		else {		
-			var horas = calculadora.pasarahoras((calculadora.milisegundosaminutos(finaljornada) - calculadora.milisegundosaminutos(iniciojornada)) - descansoexcedido);
-			var minutos = calculadora.pasaraminutos((calculadora.milisegundosaminutos(finaljornada) - calculadora.milisegundosaminutos(iniciojornada)) - descansoexcedido);
+			var horas = calculadora.pasarahoras(calculadora.milisegundosaminutos(finaljornada) - calculadora.milisegundosaminutos(iniciojornada));
+			var minutos = calculadora.pasaraminutos(calculadora.milisegundosaminutos(finaljornada) - calculadora.milisegundosaminutos(iniciojornada));
 			if(horas < 10){horas = '0' + horas}
 			if(minutos < 10){minutos = '0' + minutos}
 	
@@ -305,8 +296,19 @@ var botontotaldescanso = {
 		if (isNaN(totaldescanso)) {totaldescanso = 0}
 		
 		if (isNaN(iniciodescanso)) {
-			document.getElementById('total_horas_descanso').innerHTML = '00:00';
-			this.pulsado = false;
+			if (totaldescanso != 0) {
+				var horas = calculadora.pasarahoras(totaldescanso);
+				var minutos = calculadora.pasaraminutos(totaldescanso);
+				if(horas < 10){horas = '0' + horas}
+				if(minutos < 10){minutos = '0' + minutos}
+	
+				document.getElementById('total_horas_descanso').innerHTML = horas + ':' + minutos;
+				this.pulsado = true;
+			}
+			else {
+				document.getElementById('total_horas_descanso').innerHTML = '00:00';
+				this.pulsado = false;
+			}
 		}
 		else if (isNaN(finaldescanso)) {
 			var parcialdescanso = Date.parse(new Date());
@@ -397,18 +399,6 @@ function actualizardatos() {
 }
 
 
-/*Con esta función comprobamos cuantos minutos de descanso tenemos establecidos en el programa. Por defecto son 30*/
-function comprobarmindescanso() {
-	var descanso = localStorage.getItem('minutosdescanso');
-	if (descanso === null) {
-		minutosdescanso = 30;
-	}
-	else {
-		minutosdescanso = descanso;
-	}
-}
-
-
 /*Objeto calculadora.*/
 var calculadora = {
 	
@@ -475,7 +465,6 @@ function iniciar() {
 	mostrarhora();
 	actualizardatos();
 	escucharbotones();
-	comprobarmindescanso();
 }
 
 

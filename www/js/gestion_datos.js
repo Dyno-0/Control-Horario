@@ -1,8 +1,3 @@
-/*Iniciamos las variables globales necesarias*/
-var minutosdescanso = 30;
-var minutosTrabajo = 400;
-
-
 /*Ponemos en los INPUT la fecha y hora actual*/
 function iniciarinput() {
 	var momentoactual = new Date();
