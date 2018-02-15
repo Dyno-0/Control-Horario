@@ -11,7 +11,7 @@ body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-   font: 20px NotoSans, verdana;
+	font: 20px NotoSans, verdana;
 	color: #4D4D4D;
 	font-size: 16px;
 	margin: 0px;
