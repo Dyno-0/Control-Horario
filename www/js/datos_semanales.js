@@ -101,10 +101,6 @@ function actualizardatos() {
 			if (isNaN(salida)) {
 				document.getElementById('salida' + x).innerHTML = '00:00';
 				salida = new Date();
-				//salida = Date.parse(new Date());
-				//console.log(salida)
-				//var salidaparcial = new Date(salida);
-				//console.log(salidaparcial)
 				var horasS = salida.getHours();
 				var minutosS = salida.getMinutes();
 				comprobarCortesiaSalida(horasS, minutosS);
