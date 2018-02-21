@@ -56,13 +56,13 @@ function comprobarvariables() {
 /*Con estas tres funciones comprobamos si tenemos la cortesia diaria.*/
 function comprobarCortesiaEntrada(hora, minuto) {
 	if(hora <= 7) {cortesiaE = true}
-	else if(hora = 8 && minuto <= 30) {cortesiaE = true}
+	else if(hora == 8 && minuto <= 30) {cortesiaE = true}
 	else {cortesiaE = false}
 }
 
 function comprobarCortesiaSalida(hora, minuto) {
 	if(hora >= 15) {cortesiaS = true}
-	else if(hora = 14 && minuto >= 30) {cortesiaS = true}
+	else if(hora == 14 && minuto >= 30) {cortesiaS = true}
 	else {cortesiaS = false}
 }
 
