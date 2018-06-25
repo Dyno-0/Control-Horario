@@ -66,6 +66,12 @@ function comprobarCortesiaSalida(hora, minuto) {
 	else {cortesiaS = false}
 }
 
+function comprobarCortesiaSalidaVerano(hora, minuto) {
+	if(hora >= 15) {cortesiaS = true}
+	else if(hora == 14 && minuto >= 15) {cortesiaS = true}
+	else {cortesiaS = false}
+}
+
 function comprobarCortesiaDescanso(minutos) {
 	if(minutos <= minutosdescanso) {cortesiaD = true}
 	else {cortesiaD = false}
@@ -103,12 +109,22 @@ function actualizardatos() {
 				salida = new Date();
 				var horasS = salida.getHours();
 				var minutosS = salida.getMinutes();
-				comprobarCortesiaSalida(horasS, minutosS);
+				if (minutostrabajo == 390) {
+					comprobarCortesiaSalidaVerano(horasS, minutosS);
+				}
+				else {
+					comprobarCortesiaSalida(horasS, minutosS);
+				}
 			}
 			else {
 				var horasS = salida.getHours();
 				var minutosS = salida.getMinutes();
-				comprobarCortesiaSalida(horasS, minutosS);
+				if (minutostrabajo == 390) {
+					comprobarCortesiaSalidaVerano(horasS, minutosS);
+				}
+				else {
+					comprobarCortesiaSalida(horasS, minutosS);
+				}
 				if(horasS < 10){horasS = '0' + horasS}
 				if(minutosS < 10){minutosS = '0' + minutosS}
 			
