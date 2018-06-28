@@ -3,6 +3,7 @@ var minutosdescanso = 35;
 var minutostrabajo = 420;
 var diassemana = 5;
 var minutoscortesia = 30;
+var conciliacion = 0;
 
 
 /*Con esta función ponemos en escucha la pulsación de los botones de inicio y finalización de jornada y descanso.*/
@@ -46,14 +47,22 @@ function escucharbotones() {
 			case '0':
 				minutostrabajo = 420;
 				localStorage.setItem('minutostrabajo', minutostrabajo);
+				localStorage.setItem('conciliacion', 0);
 				break;
 			case '1':
 				minutostrabajo = 390;
 				localStorage.setItem('minutostrabajo', minutostrabajo);
+				localStorage.setItem('conciliacion', 0);
 				break;
 			case '2':
+				minutostrabajo = 390;
+				localStorage.setItem('minutostrabajo', minutostrabajo);
+				localStorage.setItem('conciliacion', 1);
+				break;
+			case '3':
 				minutostrabajo = 300;
 				localStorage.setItem('minutostrabajo', minutostrabajo);
+				localStorage.setItem('conciliacion', 0);
 				break;
 		}
 	})	
@@ -67,7 +76,8 @@ function comprobarvariables() {
 	var trabajo = parseInt(localStorage.getItem('minutostrabajo'));
 	var dias = parseInt(localStorage.getItem('diassemana'));
 	var cortesia = parseInt(localStorage.getItem('minutoscortesia'));
-	
+	var conciliacion = parseInt(localStorage.getItem('conciliacion'));
+		
 	if (isNaN(descanso) || descanso === null) {
 		minutosdescanso = 35;
 		localStorage.setItem('minutosdescanso', minutosdescanso);
@@ -78,13 +88,19 @@ function comprobarvariables() {
 
 	if (isNaN(trabajo) || trabajo === null) {
 		minutostrabajo = 420;
+		conciliacion = 0;
 		localStorage.setItem('minutostrabajo', minutostrabajo);
 	}
 	else {
 		minutostrabajo = trabajo;
 		if (minutostrabajo == 420) {document.getElementById("invierno").selected = "true"}
-		else if (minutostrabajo == 390) {document.getElementById("verano").selected = "true"}
+		
+		else if (minutostrabajo == 390) {
+			if (conciliacion == 0) {document.getElementById("verano").selected = "true"}
+			else {document.getElementById("verano_concilia").selected = "true"}
+		}
 		else if (minutostrabajo == 300) {document.getElementById("fiestas").selected= "true"}
+		
 	}
 	
 	if (isNaN(dias) || dias === null) {

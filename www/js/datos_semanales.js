@@ -9,6 +9,7 @@ var cortesia = 0;
 var cortesiaE = false;
 var cortesiaS = false;
 var cortesiaD = false;
+var conciliacion = 0;
 
 
 /*Con esta función comprobamos cuantos minutos de descanso, minutos trabajados al día y número de días semanales
@@ -18,7 +19,8 @@ function comprobarvariables() {
 	var trabajo = parseInt(localStorage.getItem('minutostrabajo'));
 	var dias = parseInt(localStorage.getItem('diassemana'));
 	var cortesiadiaria = parseInt(localStorage.getItem('minutoscortesia'));
-	
+	var conciliacion = parseInt(localStorage.getItem('conciliacion'));
+		
 	if (isNaN(descanso) || descanso === null) {
 		minutosdescanso = 35;
 		localStorage.setItem('minutosdescanso', minutosdescanso);
@@ -60,6 +62,11 @@ function comprobarCortesiaEntrada(hora, minuto) {
 	else {cortesiaE = false}
 }
 
+function comprobarCortesiaEntradaConcilia(hora, minuto) {
+	if(hora <= 9) {cortesiaE = true}
+	else {cortesiaE = false}
+}
+
 function comprobarCortesiaSalida(hora, minuto) {
 	if(hora >= 15) {cortesiaS = true}
 	else if(hora == 14 && minuto >= 30) {cortesiaS = true}
@@ -89,6 +96,7 @@ function actualizardatos() {
 		var entrada = new Date(parseInt(localStorage.getItem('iniciojornada' + x)));
 		var salida = new Date(parseInt(localStorage.getItem('finaljornada' + x)));
 		var descanso = parseInt(localStorage.getItem('totaldescanso' + x));
+		conciliacion = parseInt(localStorage.getItem('conciliacion'));
 		if (isNaN(entrada)) {
 			document.getElementById('entrada' + x).innerHTML = '00:00';
 			entrada = 0;
@@ -98,7 +106,12 @@ function actualizardatos() {
 		else {
 			var horasE = entrada.getHours();
 			var minutosE = entrada.getMinutes();
-			comprobarCortesiaEntrada(horasE, minutosE);
+			if(conciliacion == 1 && minutostrabajo == 390) {
+				comprobarCortesiaEntradaConcilia(horasE, minutosE);
+			}
+			else {
+				comprobarCortesiaEntrada(horasE, minutosE);
+			}
 			if(horasE < 10){horasE = '0' + horasE}
 			if(minutosE < 10){minutosE = '0' + minutosE}
 			
