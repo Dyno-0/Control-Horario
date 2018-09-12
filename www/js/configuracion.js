@@ -20,7 +20,7 @@ function escucharbotones() {
 	});	
 	document.getElementById('actualizar_minutos_cortesia').addEventListener('click', function () {	
 		var minutoscortesia = document.getElementById('minutoscortesia').value;
-		if (minutoscortesia === '' || isNaN(minutoscortesiao)) {
+		if (minutoscortesia === '' || isNaN(minutoscortesia)) {
 			minutoscortesia = 30;
 			alert('Debes introducir un número válido.');
 		}	
