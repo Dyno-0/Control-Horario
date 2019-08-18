@@ -1,9 +1,7 @@
 /*Iniciamos las variables globales necesarias*/
-var minutosdescanso = 35;
-var minutostrabajo = 420;
+var minutosdescanso = 30;
+var minutostrabajo = 400;
 var diassemana = 5;
-var minutoscortesia = 30;
-var conciliacion = 0;
 
 
 /*Con esta función ponemos en escucha la pulsación de los botones de inicio y finalización de jornada y descanso.*/
@@ -18,68 +16,39 @@ function escucharbotones() {
 		document.getElementById('diassemana').placeholder = diassemana;
 		document.getElementById('diassemana').value = "";
 	});	
-	document.getElementById('actualizar_minutos_cortesia').addEventListener('click', function () {	
-		var minutoscortesia = document.getElementById('minutoscortesia').value;
-		if (minutoscortesia === '' || isNaN(minutoscortesia)) {
-			minutoscortesia = 30;
+	document.getElementById('actualizar_minutos_trabajo').addEventListener('click', function () {	
+		var minutostrabajo = document.getElementById('minutostrabajo').value;
+		if (minutostrabajo === '' || isNaN(minutostrabajo)) {
+			minutostrabajo = 400;
 			alert('Debes introducir un número válido.');
 		}	
-		localStorage.setItem('minutoscortesia', minutoscortesia);
-		document.getElementById('minutoscortesia').placeholder = minutoscortesia;
-		document.getElementById('minutoscortesia').value = "";
+		localStorage.setItem('minutostrabajo', minutostrabajo);
+		document.getElementById('minutostrabajo').placeholder = minutostrabajo;
+		document.getElementById('minutostrabajo').value = "";
 
 	});
 	document.getElementById('actualizar_minutos_descanso').addEventListener('click', function () {
 		var minutosdescanso = document.getElementById('minutosdescanso').value;
 		if (minutosdescanso === '' || isNaN(minutosdescanso)) {
-			minutosdescanso = 35;
+			minutosdescanso = 30;
 			alert('Debes introducir un número válido.');
 		}	
 		localStorage.setItem('minutosdescanso', minutosdescanso);
 		document.getElementById('minutosdescanso').placeholder = minutosdescanso;
 		document.getElementById('minutosdescanso').value = "";
 	});	
-	document.getElementById('minutostrabajo').addEventListener('change', function () {
-		var tipodato = document.getElementById('minutostrabajo').value;
-
-		/*Ejecutamos la función necesaria según el dato que elegimos para cambiar*/	
-		switch(tipodato) {
-			case '0':
-				minutostrabajo = 420;
-				localStorage.setItem('minutostrabajo', minutostrabajo);
-				localStorage.setItem('conciliacion', 0);
-				break;
-			case '1':
-				minutostrabajo = 390;
-				localStorage.setItem('minutostrabajo', minutostrabajo);
-				localStorage.setItem('conciliacion', 0);
-				break;
-			case '2':
-				minutostrabajo = 390;
-				localStorage.setItem('minutostrabajo', minutostrabajo);
-				localStorage.setItem('conciliacion', 1);
-				break;
-			case '3':
-				minutostrabajo = 300;
-				localStorage.setItem('minutostrabajo', minutostrabajo);
-				localStorage.setItem('conciliacion', 0);
-				break;
-		}
-	})	
 }
 
 
-/*Con esta función comprobamos cuantos minutos de descanso, minutos de cortesia, minutos trabajados al día y número de días semanales
-tenemos establecidos en el programa. Por defecto son 35, 30, 400 y 5 días.*/
+/*Con esta función comprobamos cuantos minutos de descanso, minutos trabajados al día y número de días semanales
+tenemos establecidos en el programa. Por defecto son 30, 400 y 5 días.*/
 function comprobarvariables() {
-	var descanso = parseInt(localStorage.getItem('minutosdescanso'));
-	var trabajo = parseInt(localStorage.getItem('minutostrabajo'));
-	var dias = parseInt(localStorage.getItem('diassemana'));
-	var cortesia = parseInt(localStorage.getItem('minutoscortesia'));
-	var conciliacion = parseInt(localStorage.getItem('conciliacion'));
-		
+	var descanso = localStorage.getItem('minutosdescanso');
+	var trabajo = localStorage.getItem('minutostrabajo');
+	var dias = localStorage.getItem('diassemana');
+	
 	if (isNaN(descanso) || descanso === null) {
-		minutosdescanso = 35;
+		minutosdescanso = 30;
 		localStorage.setItem('minutosdescanso', minutosdescanso);
 	}
 	else {
@@ -87,20 +56,11 @@ function comprobarvariables() {
 	}
 
 	if (isNaN(trabajo) || trabajo === null) {
-		minutostrabajo = 420;
-		conciliacion = 0;
+		minutostrabajo = 400;
 		localStorage.setItem('minutostrabajo', minutostrabajo);
 	}
 	else {
 		minutostrabajo = trabajo;
-		if (minutostrabajo == 420) {document.getElementById("invierno").selected = "true"}
-		
-		else if (minutostrabajo == 390) {
-			if (conciliacion == 0) {document.getElementById("verano").selected = "true"}
-			else {document.getElementById("verano_concilia").selected = "true"}
-		}
-		else if (minutostrabajo == 300) {document.getElementById("fiestas").selected= "true"}
-		
 	}
 	
 	if (isNaN(dias) || dias === null) {
@@ -111,17 +71,10 @@ function comprobarvariables() {
 		diassemana = dias;
 	}
 	
-	if (isNaN(cortesia) || cortesia === null) {
-		cortesia = 30;
-		localStorage.setItem('minutoscortesia', cortesia);
-	}
-	else {
-		minutoscortesia = cortesia;
-	}
-
+	document.getElementById('minutostrabajo').placeholder = minutostrabajo;
 	document.getElementById('minutosdescanso').placeholder = minutosdescanso;
 	document.getElementById('diassemana').placeholder = diassemana;
-	document.getElementById('minutoscortesia').placeholder = minutoscortesia;
+
 }
 
 

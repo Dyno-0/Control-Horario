@@ -1,28 +1,20 @@
 /*Iniciamos las variables globales necesarias*/
-var minutosdescanso = 35;
-var minutostrabajo = 420;
+var minutosdescanso = 30;
+var minutostrabajo = 400;
 var diassemana = 5;
 var total = 0;
 var contador = 0;
-var minutoscortesia = 30;
-var cortesia = 0;
-var cortesiaE = false;
-var cortesiaS = false;
-var cortesiaD = false;
-var conciliacion = 0;
 
 
 /*Con esta función comprobamos cuantos minutos de descanso, minutos trabajados al día y número de días semanales
-tenemos establecidos en el programa. Por defecto son 35, 400 y 5 días.*/
+tenemos establecidos en el programa. Por defecto son 30, 400 y 5 días.*/
 function comprobarvariables() {
-	var descanso = parseInt(localStorage.getItem('minutosdescanso'));
-	var trabajo = parseInt(localStorage.getItem('minutostrabajo'));
-	var dias = parseInt(localStorage.getItem('diassemana'));
-	var cortesiadiaria = parseInt(localStorage.getItem('minutoscortesia'));
-	var conciliacion = parseInt(localStorage.getItem('conciliacion'));
-		
+	var descanso = localStorage.getItem('minutosdescanso');
+	var trabajo = localStorage.getItem('minutostrabajo');
+	var dias = localStorage.getItem('diassemana');
+	
 	if (isNaN(descanso) || descanso === null) {
-		minutosdescanso = 35;
+		minutosdescanso = 30;
 		localStorage.setItem('minutosdescanso', minutosdescanso);
 	}
 	else {
@@ -30,19 +22,11 @@ function comprobarvariables() {
 	}
 
 	if (isNaN(trabajo) || trabajo === null) {
-		minutostrabajo = 420;
+		minutostrabajo = 400;
 		localStorage.setItem('minutostrabajo', minutostrabajo);
 	}
 	else {
 		minutostrabajo = trabajo;
-	}
-	
-	if (isNaN(cortesiadiaria) || cortesiadiaria === null) {
-		minutoscortesia = 30;
-		localStorage.setItem('minutoscortesia', minutoscortesia);
-	}
-	else {
-		minutoscortesia = cortesiadiaria;
 	}
 	
 	if (isNaN(dias) || dias === null) {
@@ -55,135 +39,66 @@ function comprobarvariables() {
 }
 
 
-/*Con estas tres funciones comprobamos si tenemos la cortesia diaria.*/
-function comprobarCortesiaEntrada(hora, minuto) {
-	if(hora <= 7) {cortesiaE = true}
-	else if(hora == 8 && minuto <= 30) {cortesiaE = true}
-	else {cortesiaE = false}
-}
-
-function comprobarCortesiaEntradaConcilia(hora, minuto) {
-	if(hora <= 9) {cortesiaE = true}
-	else {cortesiaE = false}
-}
-
-function comprobarCortesiaSalida(hora, minuto) {
-	if(hora >= 15) {cortesiaS = true}
-	else if(hora == 14 && minuto >= 30) {cortesiaS = true}
-	else {cortesiaS = false}
-}
-
-function comprobarCortesiaSalidaVerano(hora, minuto) {
-	if(hora >= 15) {cortesiaS = true}
-	else if(hora == 14 && minuto >= 15) {cortesiaS = true}
-	else {cortesiaS = false}
-}
-
-function comprobarCortesiaDescanso(minutos) {
-	if(minutos <= minutosdescanso) {cortesiaD = true}
-	else {cortesiaD = false}
-}
-
-
 /*Actualizamos los datos a tiempo real y los mostramos en la pantalla*/
 function actualizardatos() {
 	
 	for (var x = 1; x < 6; x++) {
-		cortesia = 0;
-		cortesiaE = false;
-		cortesiaS = false;
-		cortesiaD = false;
 		var entrada = new Date(parseInt(localStorage.getItem('iniciojornada' + x)));
 		var salida = new Date(parseInt(localStorage.getItem('finaljornada' + x)));
 		var descanso = parseInt(localStorage.getItem('totaldescanso' + x));
-		conciliacion = parseInt(localStorage.getItem('conciliacion'));
 		if (isNaN(entrada)) {
 			document.getElementById('entrada' + x).innerHTML = '00:00';
 			entrada = 0;
 			salida = 0;
-			cortesia = 0;
 		}
 		else {
-			var horasE = entrada.getHours();
-			var minutosE = entrada.getMinutes();
-			if(conciliacion == 1 && minutostrabajo == 390) {
-				comprobarCortesiaEntradaConcilia(horasE, minutosE);
-			}
-			else {
-				comprobarCortesiaEntrada(horasE, minutosE);
-			}
-			if(horasE < 10){horasE = '0' + horasE}
-			if(minutosE < 10){minutosE = '0' + minutosE}
+			var horas = entrada.getHours();
+			var minutos = entrada.getMinutes();
+			if(horas < 10){horas = '0' + horas}
+			if(minutos < 10){minutos = '0' + minutos}
 			
-			document.getElementById('entrada' + x).innerHTML = horasE + ':' + minutosE;	
+			document.getElementById('entrada' + x).innerHTML = horas + ':' + minutos;	
 		
 			if (isNaN(salida)) {
 				document.getElementById('salida' + x).innerHTML = '00:00';
-				salida = new Date();
-				var horasS = salida.getHours();
-				var minutosS = salida.getMinutes();
-				if (minutostrabajo == 390) {
-					comprobarCortesiaSalidaVerano(horasS, minutosS);
-				}
-				else {
-					comprobarCortesiaSalida(horasS, minutosS);
-				}
+				salida = Date.parse(new Date());
 			}
 			else {
-				var horasS = salida.getHours();
-				var minutosS = salida.getMinutes();
-				if (minutostrabajo == 390) {
-					comprobarCortesiaSalidaVerano(horasS, minutosS);
-				}
-				else {
-					comprobarCortesiaSalida(horasS, minutosS);
-				}
-				if(horasS < 10){horasS = '0' + horasS}
-				if(minutosS < 10){minutosS = '0' + minutosS}
-			
-				document.getElementById('salida' + x).innerHTML = horasS + ':' + minutosS;	
-			}
-		
-			if (isNaN(descanso)) {
-				document.getElementById('descanso' + x).innerHTML = '00:00';
-				descanso = 0;
-				comprobarCortesiaDescanso(descanso);
-			}
-			else {
-				var horas = calculadora.pasarahoras(descanso);
-				var minutos = calculadora.pasaraminutos(descanso);
-				comprobarCortesiaDescanso(descanso)
+				var horas = salida.getHours();
+				var minutos = salida.getMinutes();
 				if(horas < 10){horas = '0' + horas}
 				if(minutos < 10){minutos = '0' + minutos}
 			
-				document.getElementById('descanso' + x).innerHTML = horas + ':' + minutos;	
+				document.getElementById('salida' + x).innerHTML = horas + ':' + minutos;	
 			}
 		}
 		
+		if (isNaN(descanso)) {
+			document.getElementById('descanso' + x).innerHTML = '00:00';
+			descanso = 0;
+		}
+		else {
+			var horas = calculadora.pasarahoras(descanso);
+			var minutos = calculadora.pasaraminutos(descanso);
+			if(horas < 10){horas = '0' + horas}
+			if(minutos < 10){minutos = '0' + minutos}
+			
+			document.getElementById('descanso' + x).innerHTML = horas + ':' + minutos;	
+		}
 		
-		/*Calculamos el descanso excedido del día*/
+		
 		var descansoexcedido = 0;		
-		if (descanso > minutosdescanso) {descansoexcedido = descanso - minutosdescanso}	
-		
-		
-		/*Calculamos el total diario y lo mostramos en la pantalla*/
-		if (cortesiaE == true && cortesiaS == true && cortesiaD == true) {cortesia = minutoscortesia}
-		var horas = calculadora.pasarahoras(((calculadora.milisegundosaminutos(salida) - calculadora.milisegundosaminutos(entrada)) - descansoexcedido) + cortesia);
-		var minutos = calculadora.pasaraminutos(((calculadora.milisegundosaminutos(salida) - calculadora.milisegundosaminutos(entrada)) - descansoexcedido) + cortesia);
+		if (descanso > 30) {descansoexcedido = descanso - 30}	
+		var horas = calculadora.pasarahoras((calculadora.milisegundosaminutos(salida) - calculadora.milisegundosaminutos(entrada)) - descansoexcedido);
+		var minutos = calculadora.pasaraminutos((calculadora.milisegundosaminutos(salida) - calculadora.milisegundosaminutos(entrada)) - descansoexcedido);
 		if(horas < 10){horas = '0' + horas}
 		if(minutos < 10){minutos = '0' + minutos}
 		
 		document.getElementById('total' + x).innerHTML = horas + ':' + minutos;	
-		if((((calculadora.milisegundosaminutos(salida) - calculadora.milisegundosaminutos(entrada)) - descansoexcedido) + cortesia) >= minutostrabajo) {
-			document.getElementById('total' + x).style.color = '#008000';	
-		}
-		else {
-			document.getElementById('total' + x).style.color = '#A52A2A';	
-		}
 		
 		
 		/*Calculamos el tiempo total trabajado en la semana y lo mostramos en la pantalla*/
-		total = total + (((calculadora.milisegundosaminutos(salida) - calculadora.milisegundosaminutos(entrada)) - descansoexcedido) + cortesia);
+		total = total + ((calculadora.milisegundosaminutos(salida) - calculadora.milisegundosaminutos(entrada)) - descansoexcedido);
 		var horastotales = calculadora.pasarahoras(total);
 		var minutostotales = calculadora.pasaraminutos(total);
 		if(horastotales < 10){horastotales = '0' + horastotales}
@@ -283,7 +198,8 @@ function hora() {
 }
 
 
-/*Con esta función hacemos que el reloj se actualice cada segundo.*/
+/*Con esta función hacemos que el reloj se actualice cada segundo. Además también actualiza a tiempo real, los 
+datos mostrados en pantalla y la operatividad con los botones.*/
 function mostrarhora() {
 	window.setInterval(hora, 1000);
 }	
